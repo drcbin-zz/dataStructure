@@ -1,4 +1,3 @@
-#include<iostream>
 #include<string>
 using namespace std;
 template<class T> class Node{
@@ -33,6 +32,7 @@ template<class T> class LinkList{
         T get();
         T get(int local);
         bool isEmpty();
+        void empty();
 };
 template<class T> LinkList<T>::LinkList(){
     this->head=NULL;
@@ -42,7 +42,11 @@ template<class T> LinkList<T>::LinkList(){
 template<class T> LinkList<T>::LinkList(int MAXSIZE){
     if(MAXSIZE <= 0){
         string VALUEERROR = "VALUEERROR";
-        throw VALUEERROR;
+        try{
+             throw VALUEERROR;
+        }catch(string e){
+            throw e;
+        }
     }
     this->head=NULL;
     this->last=NULL;   
@@ -55,7 +59,11 @@ template<class T> int LinkList<T>::getLength(){
 template<class T> void LinkList<T>::push(T data){
     if(isEmpty()){
         string OVERFLOWERROR = "OVERFLOWERROR";
-        throw OVERFLOWERROR;
+        try{
+            throw OVERFLOWERROR;
+        }catch(string e){
+            throw e;
+        }
     }
     if(!head){
         head=new Node<T>(data);
@@ -70,10 +78,12 @@ template<class T> void LinkList<T>::push(T data){
 }
 template<class T> T LinkList<T>::pop(){
     if(!head){
-        cout << "now in pop()" << endl;
         string OVERFLOWERROR = "OVERFLOWERROR";
-        throw OVERFLOWERROR;
-        cout << "now in the end of pop()" << endl;
+        try{
+            throw OVERFLOWERROR;
+        }catch(string e){
+            throw e;
+        }
     }
     T data = last->data;
     if(!last->pre){
@@ -90,21 +100,22 @@ template<class T> T LinkList<T>::pop(){
 
 }
 template<class T> T LinkList<T>::pop(int local){
-    Node<T> p=head;
+    Node<T> *p=head;
     if(local > length){
         string OVERFLOWERROR = "OVERFLOWERROR";
-        throw OVERFLOWERROR;
+        try{
+            throw OVERFLOWERROR;
+        }catch(string e){
+            throw e;
+        }
     }
     for(int i=0;p && i<local-1;i++){
         p = p->next;
     }        
     if(p==head){
-        try{
+            T data = p->data;
             head = head->next;
             head->pre = NULL;
-        }catch(...){
-            cout << "get is" << endl;
-        }
     }
     else if(p && p->next){
         T data = p->data;
@@ -121,23 +132,35 @@ template<class T> T LinkList<T>::pop(int local){
 template<class T> T LinkList<T>::get(){
     if(!head){
         string OVERFLOWERROR = "OVERFLOWERROR";
-        throw OVERFLOWERROR;
+        try{
+             throw OVERFLOWERROR;
+        }catch(string e){
+            throw e;
+        }
     }
     T data = last->data;
     return data;
 }
 template<class T> T LinkList<T>::get(int local){
-    Node<T> p=head;
+    Node<T> *p=head;
     if(local > length){
         string OVERFLOWERROR = "OVERFLOWERROR";
-        throw OVERFLOWERROR;
+        try{
+            throw OVERFLOWERROR;
+        }catch(string e){
+            throw e;
+        }
     }
     for(int i=0;p && i<local-1;i++){
         p = p->next;
     }
     if(!p){
         string NOTFINDERROR="NOTFINDERROR";
-       throw NOTFINDERROR; 
+        try{
+           throw NOTFINDERROR; 
+        }catch(string e){
+            throw e;
+        }
     }
     return p->data;
 }
@@ -146,4 +169,13 @@ template<class T> bool LinkList<T>::isEmpty(){
         return length >= MAXSIZE?true:false;
     }
     return false;
+}
+template<class T>void LinkList<T>::empty(){
+    Node<T> *p = last;
+    while(p){
+        p = last->pre;
+        delete last;
+        length--;
+    }
+    head = NULL;
 }
