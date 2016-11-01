@@ -1,27 +1,27 @@
 #include<string>
 using namespace std;
-template<class T> class Node{
+template<class T> class LS_node{
     public:
-        Node(){
+        LS_node(){
             this->next = NULL;
             this->pre = NULL;
         }
-        Node<T>(T data){
+        LS_node<T>(T data){
             this->data=data;
             this->next=NULL;
             this->pre = NULL;
         }
         T data;
-        Node *next,*pre;
+        LS_node *next,*pre;
 };
 template<class T> class LinkList{
     private:
         int MAXSIZE;
-        Node<T> *head;
-        Node<T> *last;
+        LS_node<T> *head;
+        LS_node<T> *last;
         bool haveMaxSize;
         int length;
-        Node<T> data;
+        LS_node<T> data;
     public:
         LinkList();
         LinkList(int MAXSIZE);
@@ -66,12 +66,12 @@ template<class T> void LinkList<T>::push(T data){
         }
     }
     if(!head){
-        head=new Node<T>(data);
+        head=new LS_node<T>(data);
         last=head;
         length++;
         return;
     }
-    last->next = new Node<T>(data);
+    last->next = new LS_node<T>(data);
     last->next->pre=last;
     last = last->next;
     length++;
@@ -100,7 +100,7 @@ template<class T> T LinkList<T>::pop(){
 
 }
 template<class T> T LinkList<T>::pop(int local){
-    Node<T> *p=head;
+    LS_node<T> *p=head;
     if(local > length){
         string OVERFLOWERROR = "OVERFLOWERROR";
         try{
@@ -142,7 +142,7 @@ template<class T> T LinkList<T>::get(){
     return data;
 }
 template<class T> T LinkList<T>::get(int local){
-    Node<T> *p=head;
+    LS_node<T> *p=head;
     if(local > length){
         string OVERFLOWERROR = "OVERFLOWERROR";
         try{
@@ -171,7 +171,7 @@ template<class T> bool LinkList<T>::isEmpty(){
     return false;
 }
 template<class T>void LinkList<T>::empty(){
-    Node<T> *p = last;
+    LS_node<T> *p = last;
     while(p){
         p = last->pre;
         delete last;
