@@ -89,7 +89,9 @@ template<class T>void BTree<T>::_preOrder(BTree_node<T>* root){
 template<class T>void BTree<T>::_inOrder(BTree_node<T> *root){
     if(root != NULL){
         _inOrder(root->lchild);
-        cout << root->data << ' ';
+        cout << root->ltag << ' ' << root->data << ' ' << root->rtag << endl;
+        
+        // cout << root->data << ' ';
         _inOrder(root->rchild);
     }
 }
@@ -136,4 +138,13 @@ template<class T>void BTree<T>::_levelOrder(BTree_node<T> *root){
         delete p;
         p=head;
     }
+}
+
+int main()
+{
+    BTree<char> *tree = new BTree<char>();
+    tree->crt();
+    tree->threadly();
+    tree->inOrder();
+    return 0;
 }
